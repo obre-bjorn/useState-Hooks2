@@ -15,7 +15,7 @@ function App() {
     ]
 
     const [selected, setSelected] = useState(0)
-    const [votes,setVotes] = useState({0:0})
+    const [votes,setVotes] = useState({})
 
     
     const handleSelected = () => {
@@ -35,10 +35,31 @@ function App() {
       setVotes(points)
     }
 
+    const getHighestVotedAnecdote = () =>{
+      let highest = 0
+
+      Object.keys(votes).forEach(anecdote => {
+        console.log(highest)
+        if (votes[anecdote] >  votes[highest]){
+          highest = anecdote
+        }
+      })
+      
+      return(
+        <>
+          <h1>Highest voted Anecdote</h1>
+          <p> { anecdotes[highest] }  has <b>{votes[highest]}</b> Votes.</p> 
+        </>
+      )
+
+      }
+
+
 
     return (
 
       <>
+        <h1>Anecdotes of the Day</h1>
         <p> { anecdotes[selected] }  has <b>{!votes[selected]? 0: votes[selected]}</b> Votes.</p> 
         <span>
           <Button handleClick = { handleSelectedVote } text = 'Vote' />
@@ -47,6 +68,8 @@ function App() {
           <Button handleClick = { handleSelected }text = 'Next Anecdotes' />
 
         </span> 
+        <br/>
+        {getHighestVotedAnecdote()}
       </>
     )
 }
