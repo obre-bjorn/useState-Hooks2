@@ -15,23 +15,31 @@ function App() {
     ]
 
     const [selected, setSelected] = useState(0)
+    const [votes,setVotes] = useState({0:0})
 
+    
     const handleSelected = () => {
+      const randomIndex = Math.floor(Math.random() * anecdotes.length)
+      setSelected(randomIndex)
 
-        const randomIndex = Math.floor(Math.random() * anecdotes.length)
-        setSelected(randomIndex)
     }
-
+    
     const handleSelectedVote = () => {
-      console.log("One VOte")
+      const points = {...votes}
 
+      if(!points[selected]){
+        points[selected] = 1
+      }else{
+        points[selected]+=1
+      }
+      setVotes(points)
     }
 
 
     return (
 
       <>
-        <p> { anecdotes[selected] } </p> 
+        <p> { anecdotes[selected] }  has <b>{!votes[selected]? 0: votes[selected]}</b> Votes.</p> 
         <span>
           <Button handleClick = { handleSelectedVote } text = 'Vote' />
           &nbsp;
